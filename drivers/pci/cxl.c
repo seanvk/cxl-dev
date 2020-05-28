@@ -30,6 +30,11 @@
 
 #define PCI_CXL_CONFIG_LOCK		BIT(0)
 
+static int pci_cxl_port_reg_enable = 0;
+static int pci_cxl_port_dev_reg_enable = 0;
+static int pci_cxl_per_enable = 0;
+static int pci_cxl_native_hp_enable = 0;
+
 static void pci_cxl_unlock(struct pci_dev *dev)
 {
 	int cxl = dev->cxl_cap;
@@ -138,6 +143,53 @@ static int pci_find_cxl_capability(struct pci_dev *dev)
 	return 0;
 }
 
+/**
+ * pci_cxl_port_reg_enabled - is CXL 1.1 Port registers access enabled?
+ *
+ * Returns true if the OS supports access to CXL 1.1 Port registers
+ *
+ **/
+int pci_cxl_port_reg_enabled(void)
+{
+	return pci_cxl_port_reg_enable;
+}
+EXPORT_SYMBOL(pci_cxl_port_reg_enabled);
+
+/**
+ * pci_cxl_port_dev_reg_enabled - is CXL 2.0 Port/Dev registers access enabled?
+ *
+ * Returns true if the OS supports access to CXL 2.0 Port/Dev registers
+ *
+ **/
+int pci_cxl_port_dev_reg_enabled(void)
+{
+	return pci_cxl_port_dev_reg_enable;
+}
+EXPORT_SYMBOL(pci_cxl_port_dev_reg_enabled);
+
+/**
+ * pci_cxl_per_enabled - is CXL Protocol Error Reporting enabled?
+ *
+ * Returns true if the OS supports CXL Protocol Error Reporting
+ *
+ **/
+int pci_cxl_per_enabled(void)
+{
+	return pci_cxl_per_enable;
+}
+EXPORT_SYMBOL(pci_cxl_per_enabled);
+
+/**
+ * pci_cxl_native_hp_enabled - is CXL Native Hot Plug enabled?
+ *
+ * Returns true if the OS CXL Native Hot Plug
+ *
+ **/
+int pci_cxl_native_hp_enabled(void)
+{
+	return pci_cxl_native_hp_enable;
+}
+EXPORT_SYMBOL(pci_cxl_native_hp_enabled);
 
 #define FLAG(x, y)	(((x) & (y)) ? '+' : '-')
 

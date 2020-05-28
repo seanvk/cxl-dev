@@ -1446,6 +1446,13 @@ struct msix_entry {
 	u16	entry;	/* Driver uses to specify entry, OS writes */
 };
 
+#ifdef CONFIG_PCI_CXL
+int pci_cxl_port_reg_enabled(void);
+int pci_cxl_port_dev_reg_enabled(void);
+int pci_cxl_per_enabled(void);
+int pci_cxl_native_hp_enabled(void);
+#endif
+
 #ifdef CONFIG_PCI_MSI
 int pci_msi_vec_count(struct pci_dev *dev);
 void pci_disable_msi(struct pci_dev *dev);
